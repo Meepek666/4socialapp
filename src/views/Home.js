@@ -1,5 +1,69 @@
-const Home = () => {
-    return <h2>Home</h2>;
-}
+import './Home.css';
+
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Post from "../components/Post";
+import SignUp from './SignUp';
+import AddPost from '../components/AddPost';
+import FollowRecommendations from '../components/FollowRecommendations';
+
+const Home = (props) => {
+    const [posts, setPosts] = useState([])
+
+    const getLatestPosts = () => {
+        axios
+            .post("https://akademia108.pl/api/social-app/post/latest")
+            .then((res) => {
+                setPosts(res.data)
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    const getPrevPosts = () => {
+        axios
+            .post("https://akademia108.pl/api/social-app/post/newer-then", {
+                date:posts[0].created_at,
+            })
+            .then((res) => {
+                setPosts(res.data.concat(posts))
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        
+    };
+
+    const getNextPosts = () => {
+        axios
+            .post("https://akademia108.pl/api/social-app/post/older-then", {
+                date: posts[posts.lenght - 1].created_at
+            })
+            .then((res) => {
+                setPosts(posts.concat(res.data));
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    useEffect(() => {
+        getLatestPosts();
+    }, [props.user]);
+
+    return (
+        <div className="home">
+            {props.user && <AddPost getPrevPosts={getPrevPosts} />}
+            {props.user && <FollowRecommendations user={props.user} getLatestPosts={getLatestPosts} post={posts} />}
+            <div className="postList">
+                {posts.map((post) => {
+                    return <Post post={post} key={post.id} user={props.user} setPosts={setPosts} getLatestPosts={getLatestPosts}/>;
+                })}
+                <button className="btn loadMore" onClick={getNextPosts}>Load more</button>
+            </div>
+        </div>
+    );
+};
 
 export default Home;

@@ -4,7 +4,7 @@ import './SignUp.css'
 import { Link } from 'react-router-dom';
 import { Navigate } from "react-router-dom"
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     const [formData, setFormData] = useState({
         username: "",
@@ -30,112 +30,112 @@ const SignUp = () => {
             password: false,
             confirmPassword: false,
         };
-    };
 
-    if (formData.username.trim().length < 4) {
-        validationErrors.username = true;
-        setErrors((prevErrors) => {
-            return {
-                ...prevErrors,
-                username: "Username should have at least 4 characters"
-            };
-        });
-    } else if (!/^[^\s]*$/.test(formData.username.trim())) {
-        validationErrors.username = true;
-        setErrors((prevErrors) => {
-            return {
-                ...prevErrors,
-                username: "Username should'n have empty characters",
-            };
-        });
-    } else {
-        validationErrors.username = false;
-        setErrors((prevErrors) => {
-            return {
-                ...prevErrors,
-                username: "",
-            };
-        });
 
-        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
+        if (formData.username.trim().length < 4) {
             validationErrors.username = true;
             setErrors((prevErrors) => {
                 return {
                     ...prevErrors,
-                    email: "There is no valid email",
+                    username: "Username should have at least 4 characters"
+                };
+            });
+        } else if (!/^[^\s]*$/.test(formData.username.trim())) {
+            validationErrors.username = true;
+            setErrors((prevErrors) => {
+                return {
+                    ...prevErrors,
+                    username: "Username should'n have empty characters",
                 };
             });
         } else {
-            validationErrors.email = false;
+            validationErrors.username = false;
             setErrors((prevErrors) => {
                 return {
                     ...prevErrors,
-                    email: "There is no valid email",
+                    username: "",
                 };
             });
-        }
 
-        if (formData.password.trim().length < 6) {
-            validationErrors.password = true;
-            setErrors((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    password: "Password should have at least 6 characters",
-                };
-            });
-        } else if (!/^[^\s]*$/.test(formData.password.trim())) {
-            validationErrors.password = true;
-            setErrors((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    password: "Password should-'n have empty characters",
-                };
-            });
-        } else if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(formData.password.trim())) {
-            validationErrors.password = true;
-            setErrors((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    password: "Password must contain one of charts: ! # @ $ %",
-                };
-            });
-        } else {
-            validationErrors.password = false;
-            setErrors((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    password: "",
-                };
-            });
-        }
+            if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
+                validationErrors.username = true;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        email: "There is no valid email",
+                    };
+                });
+            } else {
+                validationErrors.email = false;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        email: "There is no valid email",
+                    };
+                });
+            }
 
-        if (formData.password.trim() !== formData.confirmPassword.trim()) {
-            validationErrors.confirmPassword = true;
-            setErrors((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    confirmPassword: "Passwords should be the same",
-                };
-            });
-        } else {
-            validationErrors.confirmPassword = false;
-            setErrors((prevErrors) => {
-                return {
-                    ...prevErrors,
-                    confirmPassword: "",
-                };
-            });
-        }
+            if (formData.password.trim().length < 6) {
+                validationErrors.password = true;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        password: "Password should have at least 6 characters",
+                    };
+                });
+            } else if (!/^[^\s]*$/.test(formData.password.trim())) {
+                validationErrors.password = true;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        password: "Password should-'n have empty characters",
+                    };
+                });
+            } else if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/.test(formData.password.trim())) {
+                validationErrors.password = true;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        password: "Password must contain one of charts: ! # @ $ %",
+                    };
+                });
+            } else {
+                validationErrors.password = false;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        password: "",
+                    };
+                });
+            }
+
+            if (formData.password.trim() !== formData.confirmPassword.trim()) {
+                validationErrors.confirmPassword = true;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        confirmPassword: "Passwords should be the same",
+                    };
+                });
+            } else {
+                validationErrors.confirmPassword = false;
+                setErrors((prevErrors) => {
+                    return {
+                        ...prevErrors,
+                        confirmPassword: "",
+                    };
+                });
+            }
 
 
-        return (
-            !validationErrors.username &&
-            !validationErrors.email &&
-            !validationErrors.password &&
-            !validationErrors.confirmPassword
-        );
+            return (
+                !validationErrors.username &&
+                !validationErrors.email &&
+                !validationErrors.password &&
+                !validationErrors.confirmPassword
+            );
+        };
     };
-
 
 
     const handleInputChange = (e) => {

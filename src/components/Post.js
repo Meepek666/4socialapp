@@ -5,7 +5,7 @@ import { useState } from "react";
 import axios from 'axios';
 
 
-const Post = (probs) => {
+const Post = (props) => {
     const [likeCount, setLikeCount] = useState(props.post.likes.length);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const [doesUserLiked, setDoesUserLiked] = useState(props.post.like.filter(like => like.username === props.user?.username).length !== 0);

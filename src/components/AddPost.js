@@ -4,7 +4,8 @@ import { useState } from 'react';
 
 import axios from 'axios';
 
-const AddPost = (probs) => {
+const AddPost = (props) => {
+    console.log(props)
     const [postContent, setPostContent] = useState("");
 
     const AddPost = (e) => {

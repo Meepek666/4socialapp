@@ -5,6 +5,7 @@ import AppNav from './components/AppNav';
 import Home from './views/Home';
 import Login from './views/Login';
 import SignUp from './views/SignUp';
+import axios from 'axios';
 
 function App() {
 
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-    <AppNav user={user} />
+    <AppNav user={user} setUser ={setUser} />
     <AppRoutes user={user} setUser ={setUser}/>
     </div>
   );

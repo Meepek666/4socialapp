@@ -1,10 +1,10 @@
-import "../Login.css";
+import "./Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 
 
-const Login = () => {
+const Login = (props) => {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -27,7 +27,7 @@ const Login = () => {
         e.preventDefault();
 
         axios
-            .post("https://akademia108.pl/api/social-app/user/login", {
+            .post("http://akademia108.pl/api/social-app/user/login", {
                 username: formData.username,
                 password: formData.password,
             })
@@ -67,10 +67,10 @@ const Login = () => {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={formData.username}
+                    value={formData.password}
                     onChange={handleInputChange}
                 />
-                <button className="btn">Login</button>
+                <button type = "submit" className="btn">Login</button>
             </form>
         </div>
     )

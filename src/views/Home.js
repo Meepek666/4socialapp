@@ -9,7 +9,7 @@ import FollowRecommendations from '../components/FollowRecommendations';
 
 const Home = (props) => {
     const [posts, setPosts] = useState([])
-
+console.log(posts)
     const getLatestPosts = () => {
         axios
             .post("https://akademia108.pl/api/social-app/post/latest")

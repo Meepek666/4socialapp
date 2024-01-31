@@ -8,7 +8,7 @@ import axios from 'axios';
 const Post = (props) => {
     const [likeCount, setLikeCount] = useState(props.post.likes.length);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-    const [doesUserLiked, setDoesUserLiked] = useState(props.post.like.filter(like => like.username === props.user?.username).length !== 0);
+    const [doesUserLiked, setDoesUserLiked] = useState(props.post.likes.filter(like => like.username === props.user?.username).length !== 0);
 
     const deletePost = (id) => {
         axios
@@ -16,7 +16,7 @@ const Post = (props) => {
                 post_id: id,
             })
             .then((res) => {
-                console.log(res.data);
+                console.log(props.setPosts);
                 props.setPosts((posts) => {
                     return posts.filter((post) => post.id !== res.data.post_id);
                 });
